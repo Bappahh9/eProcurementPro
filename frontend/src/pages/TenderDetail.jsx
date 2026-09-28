@@ -5,6 +5,7 @@ import { useTender, useBidsForTender } from '../hooks/useProcurementData.js';
 import { StatusTag, Banner, EmptyState } from '../components/Common.jsx';
 import { formatDate, formatNaira, parseNaira, shortenAddress, shortenHash, isDeadlinePassed } from '../utils/format.js';
 import { hashFileSHA256, hashTextSHA256 } from '../utils/hash.js';
+import VerifyDocument from '../components/VerifyDocument.jsx';
 
 export default function TenderDetail() {
   const { id } = useParams();
@@ -69,8 +70,13 @@ export default function TenderDetail() {
           </span>
         </div>
         <div className="field" style={{ marginTop: 14, marginBottom: 0 }}>
-          <label>Terms-of-reference document hash</label>
+          <label>
+            Document fingerprint <span className="badge-sha">SHA-256</span>
+          </label>
           <div className="hash-chip">{tender.documentHash}</div>
+          <div className="hint">
+            Recorded on-chain and immutable: any change to the file produces a completely different fingerprint.
+          </div>
         </div>
       </div>
 
@@ -105,7 +111,7 @@ export default function TenderDetail() {
                 <th>#</th>
                 <th>Contractor</th>
                 <th>Amount</th>
-                <th>Document</th>
+                <th>SHA-256 fingerprint</th>
                 <th>Score</th>
                 <th>Status</th>
                 {isBPP && (status === 1 || status === 2) && <th>Actions</th>}
@@ -144,6 +150,8 @@ export default function TenderDetail() {
       {status === 2 && isBPP && (
         <MilestonePaymentForm tenderId={tender.id} remaining={tender.budget - tender.amountPaid} onDone={refreshAll} />
       )}
+
+      <VerifyDocument tenderId={tender.id} bids={bids} />
 
       {(isMDAOwner || isBPP) && (status === 0 || status === 1) && (
         <div className="panel">

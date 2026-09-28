@@ -30,7 +30,7 @@ export function TenderCard({ tender }) {
             Bidding deadline: <strong>{formatDate(tender.deadline)}</strong>
           </span>
           <span>
-            Document: <span className="hash-chip">{shortenHash(tender.documentHash)}</span>
+            SHA-256: <span className="hash-chip">{shortenHash(tender.documentHash)}</span>
           </span>
         </div>
         {Number(tender.amountPaid) > 0 && (

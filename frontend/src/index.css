@@ -598,3 +598,19 @@ th {
   max-width: 460px;
   text-align: center;
 }
+
+/* ---------- SHA-256 badge ---------- */
+
+.badge-sha {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  margin-left: 6px;
+  border-radius: 999px;
+  background: var(--gold-100);
+  color: var(--gold-700);
+  vertical-align: middle;
+}
